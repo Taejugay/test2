@@ -1,5 +1,0 @@
-word = "daejung"
-word=word.upper()
-print(word)
-word _show = _*len(word)
-print(word_show)
