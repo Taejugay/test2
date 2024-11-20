@@ -1,0 +1,66 @@
+/* 기본 폰트 설정 */
+body {
+    font-family: 'Pretendard', sans-serif; /* 'Pretendard' 폰트를 기본 폰트로 사용 */
+}
+
+/* 메인 컨테이너 스타일 */
+.main-container {
+    min-height: 100vh; /* 화면 높이 전체를 차지하도록 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-direction: column; /* 플렉스 아이템을 세로로 정렬 */
+    justify-content: center; /* 플렉스 아이템을 수직으로 가운데 정렬 */
+    align-items: center; /* 플렉스 아이템을 수평으로 가운데 정렬 */
+    background: linear-gradient(to right, #ffffff, #ffffff); /* 그라데이션 배경 */
+}
+
+/* 버튼 컨테이너 스타일 */
+.button-container {
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    flex-direction: column; /* 버튼들을 세로로 정렬 */
+    gap: 20px; /* 버튼들 간의 간격 */
+}
+
+/* 버튼 스타일 */
+.btn {
+    background-color: #d92837; /* 버튼 배경색 (빨간색) */
+    color: white; /* 버튼 텍스트 색상 (흰색) */
+    font-size: 1.5rem; /* 버튼 텍스트 크기 */
+    font-weight: bold; /* 버튼 텍스트 굵게 */
+    padding: 15px 30px; /* 버튼 내부 여백 (상하: 15px, 좌우: 30px) */
+    border-radius: 30px; /* 버튼 모서리를 둥글게 설정 */
+    transition: transform 0.3s ease-in-out; /* 호버 시 크기 변화를 부드럽게 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 버튼 그림자 효과 */
+    text-align: center; /* 텍스트를 가운데 정렬 */
+}
+
+/* 버튼 호버(hover) 효과 */
+.btn:hover {
+    background-color: #1d9523; /* 버튼 배경색을 초록색으로 변경 */
+    transform: scale(1.05); /* 버튼 크기를 1.05배 키움 */
+}
+
+/* 네비게이션 링크 스타일 */
+nav a {
+    margin: 10px; /* 링크 간격 */
+    text-decoration: none; /* 밑줄 제거 */
+    color: #000; /* 링크 텍스트 색상 (검정) */
+    font-weight: bold; /* 링크 텍스트를 굵게 설정 */
+}
+
+/* 배너 영역 스타일 */
+.banner {
+    width: 100%; /* 배너 너비를 화면 전체로 설정 */
+    height: 700px; /* 배너 높이를 300px로 설정 */
+    display: flex; /* 플렉스 박스 레이아웃 사용 */
+    justify-content: center; /* 배너 내용(이미지)을 수평으로 가운데 정렬 */
+    align-items: center; /* 배너 내용(이미지)을 수직으로 가운데 정렬 */
+    overflow: hidden; /* 이미지가 영역을 초과하지 않도록 숨김 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 배너에 그림자 효과 */
+}
+
+/* 배너 이미지 스타일 */
+.banner-image {
+    width: 100%; /* 배너 너비에 맞게 이미지 크기 조정 */
+    height: 100%; /* 배너 높이에 맞게 이미지 크기 조정 */
+    object-fit: cover; /* 배너 크기에 맞게 이미지를 자르고 확장 */
+}
