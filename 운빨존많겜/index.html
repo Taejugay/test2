@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="#경험치 계산기,#프로필 조건 확인,">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:image" content="main.png">
+    <meta property="og:description" content="#경험치 계산기,#프로필 조건 확인,">
+    <meta name="google-adsense-account" content="ca-pub-7764369913509946">
+    <title>운빨존많겜</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="JavaScript.js">
+    <style>
+        /* 비디오와 텍스트를 나란히 배치하는 플렉스 컨테이너 */
+        .video-text-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        /* 텍스트 스타일 (글자 크기, 간격 등) */
+        .video-text {
+            max-width: 500px;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            text-align: left;
+            animation: moveText 5s ease-out forwards; /* 텍스트 이동 애니메이션 */
+        }
+
+        /* 비디오 컨테이너 크기 설정 */
+        .video-container {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative; /* 버튼이 이 비디오 위에 배치될 수 있도록 위치 설정 */
+        }
+
+        /* 텍스트 움직이는 애니메이션 정의 */
+        @keyframes moveText {
+            0% {
+                transform: translateX(100%); /* 텍스트 시작 위치 (화면 오른쪽) */
+            }
+            100% {
+                transform: translateX(0); /* 텍스트 종료 위치 (원래 위치로 돌아옴) */
+            }
+        }
+
+        /* 슬라이드 네비게이션 버튼 스타일 */
+        .slide-nav {
+            position: absolute;
+            top: 50%; /* 버튼을 수직 중앙에 배치 */
+            transform: translateY(-50%); /* 수직 중앙 정렬 */
+            background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+            color: white;
+            padding: 20px;
+            cursor: pointer;
+            font-size: 30px;  /* 버튼 크기 설정 */
+            z-index: 10; /* 버튼이 영상 위로 나타나게 설정 */
+        }
+
+        /* 이전 버튼 */
+        .prev {
+            left: 10px;  /* 왼쪽에 위치 */
+        }
+
+        /* 다음 버튼 */
+        .next {
+            right: 10px; /* 오른쪽에 위치 */
+        }
+
+        /* 메뉴 항목 스타일 */
+        .menu-item {
+            font-size: 1.2rem;  /* 글자 크기 설정 */
+            font-weight: 500;   /* 글자 굵기 설정 */
+            text-decoration: none; /* 링크 밑줄 제거 */
+            color: #333; /* 기본 글자 색상 설정 */
+            transition: color 0.3s ease, transform 0.3s ease; /* 호버 시 색상과 크기 변화 부드럽게 */
+        }
+
+        /* 메뉴 항목에 마우스를 올렸을 때 색상 변경 및 크기 확대 */
+        .menu-item:hover {
+            color: #e53e3e; /* 마우스 호버 시 빨간색으로 변경 */
+            transform: scale(1.05); /* 살짝 커지도록 확대 */
+        }
+
+        /* 현재 활성화된 메뉴 항목에 대해 스타일 적용 */
+        .menu-item.active {
+            color: #ff4500; /* 활성화된 메뉴 항목 색상 변경 (주황색) */
+        }
+
+        /* 패치노트 섹션 */
+        .patch-notes {
+            background-color: #f8f8f8;
+            padding: 20px;
+            margin-top: 40px;
+            border-radius: 8px;
+            overflow-x: auto; /* 가로 스크롤을 활성화 */
+            white-space: nowrap; /* 항목들이 한 줄에 표시되도록 설정 */
+        }
+
+        /* 패치노트 제목 스타일 */
+        .patch-notes h2 {
+            font-size: 2rem;
+            margin-bottom: 16px;
+            color: #333;
+        }
+
+        /* 패치노트 목록 항목 스타일 */
+        .patch-notes ul {
+            list-style-type: none;
+            padding-left: 0;
+            display: flex;
+            gap: 40px; /* 항목 간격 */
+        }
+
+        .patch-notes ul li {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            display: inline-block; /* 항목들이 한 줄로 표시되도록 설정 */
+        }
+
+        .patch-notes ul li::before {
+            content: "🔹";
+            margin-right: 8px;
+        }
+
+        /* 가로 스크롤을 위한 스타일 (활성화된 패치노트 항목에 색상 추가) */
+        .patch-notes ul li:hover {
+            color: #e53e3e;
+            transform: scale(1.05);
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- 배너 섹션 -->
+    <header class="banner">
+        <img src="banner.png" alt="운빨존많겜 배너" class="banner-image">
+    </header>
+
+    <!-- 메뉴 바 섹션 (상단 배너 바로 아래) -->
+    <nav class="bg-white-900 text-white py-4 flex items-center justify-between px-4">
+        <!-- 로고 이미지 (왼쪽) -->
+        <img src="logo.png" alt="운빨존많겜 로고" class="h-10">
+        
+        <!-- 메뉴 항목 (가운데) -->
+        <ul class="flex justify-center space-x-8 flex-grow">
+            <li><a href="/" class="hover:text-red-400">홈</a></li>
+            <li><a href="https://www.youtube.com/@luckydefense111/featured" class="hover:text-red-400">운빨용병단</a></li>
+            <li><a href="https://111percent.tistory.com" class="hover:text-red-400">111PERCENT BLOG</a></li>
+            <li><a href="https://cafe.naver.com/luckydefence?tc=shared_link" class="hover:text-red-400">네이버 카페</a></li>
+            <li><a href="http://play.google.com/store/apps/dev?id=7769366979601471884&hl=ko-KR" class="hover:text-red-400" target="_blank">게임</a></li>
+        </ul>
+    </nav>
+
+    <div class="main-container">
+        <h1 class="text-5xl font-bold mb-12 text-center">운빨존많겜 <br>메인 페이지</h1>
+        
+        <!-- 비디오 슬라이드 섹션 -->
+        <div class="video-text-container">
+            <!-- 비디오 -->
+            <div class="video-container text-center">
+                <h2 class="text-3xl text-black mb-4">게임 소개 영상</h2>
+                <!-- 첫 번째 YouTube 영상 임베드 -->
+                <iframe id="video-slide" width="1000" height="700" src="https://www.youtube.com/embed/CD8ZQw1VWHk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                
+                <!-- 슬라이드 네비게이션 버튼들 (비디오 안에 배치) -->
+                <div class="slide-nav prev" onclick="changeVideo(-1)">&#10094;</div>
+                <div class="slide-nav next" onclick="changeVideo(1)">&#10095;</div>
+            </div>
+            
+            <!-- 비디오 오른쪽에 텍스트 -->
+            <div class="video-text">
+                <h2 class="text-3xl text-black mb-4">당신의 운빨, 어디까지 시험해 보셨습니까?</h2>
+                <p>오직 운빨 하나만 믿고 가는 운빨ㅈㅁ 타워 디펜스 게임!<br>
+                지금 운빨존많겜에서 극한의 운빨을 시험해보세요!</p>
+            </div>
+        </div>
+
+        <!-- 기타 메뉴 항목들 -->
+        <div class="flex space-x-4 justify-center my-8">
+            <a class="btn" href="https://luckydefense-exp.netlify.app/exp_calculator">경험치 계산기</a>
+            <a class="btn" href="https://summerfallwinter.com/%EC%9A%B4%EB%B9%A8%EC%A1%B4%EB%A7%8E%EA%B2%9C-%ED%94%84%EB%A1%9C%ED%95%84-%EC%A1%B0%EA%B1%B4-%ED%9A%8D%EB%93%9D-%EB%B0%A9%EB%B2%95-%EA%B3%B5%EB%9E%B5/" class="hover:text-red-400">히든 프사 조건</a>   
+        </div>
+
+<!-- 패치노트 섹션 -->
+<div class="patch-notes">
+    <h2>패치노트</h2>
+    <ul>
+        <li class="patch-item">
+            <div class="patch-title">버전 1.2.5 - 새로운 캐릭터와 스킬 추가</div>
+            <div class="patch-details">이 버전에서는 새로운 캐릭터와 함께 새로운 스킬이 추가되었습니다.</div>
+        </li>
+        <li class="patch-item">
+            <div class="patch-title">버전 1.2.0 - 새로운 난이도 추가</div>
+            <div class="patch-details">새로운 난이도가 추가되어 더 도전적인 게임 플레이가 가능합니다.</div>
+        </li>
+        <li class="patch-item">
+            <div class="patch-title">버전 1.1.5 - 성능 최적화 및 버그 수정</div>
+            <div class="patch-details">성능이 최적화되었으며, 여러 버그가 수정되었습니다.</div>
+        </li>
+        <li class="patch-item">
+            <div class="patch-title">버전 1.1.0 - 신규 맵 추가 및 이벤트 모드 도입</div>
+            <div class="patch-details">새로운 맵과 함께 이벤트 모드가 추가되었습니다.</div>
+        </li>
+    </ul>
+</div>
+
+    <script>
+        // 슬라이드 비디오 목록 (세 번째 비디오 포함)
+        const videos = [
+            "https://www.youtube.com/embed/CD8ZQw1VWHk",  // 첫 번째 비디오
+            "https://www.youtube.com/embed/YHLDjxoJp6Y",  // 두 번째 비디오
+            "https://www.youtube.com/embed/dkbYXrl9Jwg"   // 세 번째 비디오
+        ];
+
+        let currentVideoIndex = 0;
+
+        function changeVideo(direction) {
+            currentVideoIndex += direction;
+            if (currentVideoIndex < 0) currentVideoIndex = videos.length - 1;  // 처음으로 돌아감
+            if (currentVideoIndex >= videos.length) currentVideoIndex = 0;  // 끝으로 돌아감
+            document.getElementById("video-slide").src = videos[currentVideoIndex];  // 비디오 URL 변경
+        }
+    </script>
+    <script>
+        // 모든 패치 노트 항목에 클릭 이벤트를 추가하여 세부 내용 토글
+        document.querySelectorAll('.patch-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 클릭된 항목에 'open' 클래스를 추가하거나 제거하여 세부 내용 보이기/숨기기
+                this.classList.toggle('open');
+            });
+        });
+    </script>
+    
+</body>
+</html>
